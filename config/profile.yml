@@ -1,0 +1,63 @@
+candidate:
+  full_name: "Isaac Musera"
+  email: "musera.isaac@gmail.com"
+  phone: "+254705033517"
+  location: "Nairobi, Kenya"
+  linkedin: "https://www.linkedin.com/in/musera-isaac/"
+  portfolio_url: "https://sirmusera.com/blog/author/musera/"
+  github: "https://github.com/MuseraIsaac"
+  twitter: ""
+
+target_roles:
+  primary:
+    - "Technical Support Engineer"
+    - "Linux Systems Engineer"
+    - "DevOps Engineer"
+  archetypes:
+    - name: "Technical Support Engineer"
+      level: "Mid-Senior"
+      fit: "primary"
+    - name: "Linux Systems Engineer"
+      level: "Mid-Senior"
+      fit: "primary"
+    - name: "DevOps Engineer"
+      level: "Mid-Senior"
+      fit: "secondary"
+    - name: "Cloud Support Engineer"
+      level: "Mid-Senior"
+      fit: "secondary"
+    - name: "Solutions Architect"
+      level: "Mid"
+      fit: "adjacent"
+
+narrative:
+  headline: "Technical Support Engineer specializing in Linux, AWS, Red Hat, and DevOps"
+  exit_story: "Built a career supporting mission-critical systems across Red Hat, fintech, and enterprise environments, with strengths in troubleshooting, automation, cloud, and customer support."
+  superpowers:
+    - "Linux system administration and troubleshooting"
+    - "Technical support for mission-critical production systems"
+    - "DevOps and automation with Ansible, OpenShift, and CI/CD tools"
+    - "Cloud and infrastructure support across AWS and enterprise platforms"
+    - "Customer communication and SLA-driven incident management"
+  proof_points:
+    - name: "Copy Cat LTD - Red Hat and DevOps Support"
+      url: ""
+      hero_metric: "Supported Red Hat environments, OpenShift, and Ansible automation for mission-critical customer systems"
+    - name: "Cellulant Kenya - Service Operations"
+      url: ""
+      hero_metric: "Provided 1st and 2nd level support, monitoring, incident resolution, and SLA management in high-availability production environments"
+    - name: "SICPA Kenya - Technical Service Support"
+      url: ""
+      hero_metric: "Supported SICPATRACE on site with approximately 99% system uptime"
+
+compensation:
+  target_range: "KES 400,000-580,000"
+  currency: "KES"
+  minimum: "KES 350,000"
+  location_flexibility: "Nairobi-based, EMEA, open to remote, hybrid, or on-site roles"
+
+location:
+  country: "Kenya"
+  city: "Nairobi"
+  timezone: "Africa/Nairobi"
+  visa_status: "Not specified"
