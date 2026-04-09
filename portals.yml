@@ -1,0 +1,330 @@
+# Portal Scanner Configuration
+# Used by /career-ops scan to discover new offers automatically.
+#
+# Strategy (3 levels):
+#   1. Playwright → careers_url of each company (real-time, reliable)
+#   2. Greenhouse API → structured JSON (fast, Greenhouse-only)
+#   3. WebSearch with site: filters (broad discovery, may be stale)
+#
+# IMPORTANT: Each company in tracked_companies MUST have careers_url.
+#
+# HOW TO CUSTOMIZE:
+#   1. Copy this file to portals.yml in the project root
+#   2. Edit title_filter.positive with YOUR target role keywords
+#   3. Add/remove companies in tracked_companies
+#   4. Adjust search_queries for your preferred job boards
+#   5. Set enabled: false on companies you don't care about
+
+# -- Title filter --
+# The scanner uses these keywords to decide if a title is relevant.
+# At least 1 positive must match AND 0 negatives must match (case-insensitive).
+# Portal Scanner Configuration
+# Tailored to Isaac Musera's CV and target roles.
+# Focus: Technical Support Engineer, Linux Systems Engineer, DevOps Engineer,
+# Cloud Support Engineer, Solutions Engineer / Architect, and Site Reliability.
+
+title_filter:
+  positive:
+    # -- Support / Operations --
+    - "Support Engineer"
+    - "Technical Support Engineer"
+    - "Customer Support Engineer"
+    - "Technical Support"
+    - "Service Operations"
+    - "Production Support"
+    - "Application Support"
+    - "Platform Support"
+    - "Support Specialist"
+    - "Support Analyst"
+    - "Incident Manager"
+    - "Operations Engineer"
+    - "Site Reliability"
+    - "SRE"
+    - "Reliability Engineer"
+
+    # -- Linux / Systems / Cloud --
+    - "Linux Engineer"
+    - "Linux Systems Engineer"
+    - "Systems Engineer"
+    - "System Administrator"
+    - "Infrastructure Engineer"
+    - "Cloud Engineer"
+    - "Cloud Support Engineer"
+    - "Cloud Operations"
+    - "Platform Engineer"
+
+    # -- DevOps / Automation --
+    - "DevOps Engineer"
+    - "DevOps"
+    - "Automation Engineer"
+    - "Ansible"
+    - "OpenShift"
+    - "Kubernetes"
+    - "CI/CD"
+    - "Release Engineer"
+
+    # -- Customer-facing engineering --
+    - "Solutions Engineer"
+    - "Solutions Architect"
+    - "Customer Engineer"
+    - "Technical Account Manager"
+    - "Implementation Engineer"
+    - "Integration Engineer"
+    - "Deployment Engineer"
+
+  negative:
+    - "Junior"
+    - "Intern"
+    - "Graduate"
+    - "iOS"
+    - "Android"
+    - "PHP Developer"
+    - "Ruby"
+    - "Frontend"
+    - "Designer"
+    - "Data Scientist"
+    - "ML Engineer"
+    - "AI Engineer"
+    - "LLM"
+    - "NLP"
+    - "Blockchain"
+    - "Crypto"
+    - "Sales"
+    - "Account Executive"
+    - "Recruiter"
+
+  seniority_boost:
+    - "Senior"
+    - "Lead"
+    - "Principal"
+    - "Staff"
+
+search_queries:
+  # -- Red Hat / Linux / DevOps --
+  - name: Red Hat / Linux Support
+    query: 'site:jobs.ashbyhq.com OR site:job-boards.greenhouse.io OR site:jobs.lever.co "Linux Support Engineer" OR "Technical Support Engineer" OR "Systems Engineer" remote'
+    enabled: true
+
+  - name: DevOps / Platform / SRE
+    query: 'site:jobs.ashbyhq.com OR site:job-boards.greenhouse.io OR site:jobs.lever.co "DevOps Engineer" OR "Platform Engineer" OR "Site Reliability Engineer" remote'
+    enabled: true
+
+  - name: Cloud Support / Infrastructure
+    query: 'site:jobs.ashbyhq.com OR site:job-boards.greenhouse.io OR site:jobs.lever.co "Cloud Support Engineer" OR "Infrastructure Engineer" OR "Cloud Operations" remote'
+    enabled: true
+
+  - name: OpenShift / Kubernetes / Ansible
+    query: 'site:jobs.ashbyhq.com OR site:job-boards.greenhouse.io OR site:jobs.lever.co "OpenShift" OR "Kubernetes" OR "Ansible" engineer remote'
+    enabled: true
+
+  - name: Solutions / Customer Engineering
+    query: 'site:jobs.ashbyhq.com OR site:job-boards.greenhouse.io OR site:jobs.lever.co "Solutions Engineer" OR "Customer Engineer" OR "Implementation Engineer" remote'
+    enabled: true
+
+  - name: Fintech / Production Support
+    query: '"fintech" "Support Engineer" OR "Service Operations" OR "Production Support" remote'
+    enabled: true
+
+  - name: AWS / Cloud Operations
+    query: 'site:jobs.ashbyhq.com OR site:job-boards.greenhouse.io OR site:jobs.lever.co "AWS" "Cloud Engineer" OR "Support Engineer" OR "Operations Engineer" remote'
+    enabled: true
+
+  - name: Remote-first global / Africa / EMEA
+    query: '"remote" ("Africa" OR "EMEA" OR "Kenya" OR "work from anywhere") "Support Engineer" OR "DevOps Engineer" OR "Site Reliability Engineer"'
+    enabled: true
+
+  - name: Remote support companies for Africa / Kenya
+    query: '"Africa" OR "Kenya" "remote" "Technical Support Engineer" OR "Cloud Support Engineer" OR "Customer Engineer"'
+    enabled: true
+
+tracked_companies:
+  - name: Red Hat
+    careers_url: https://www.redhat.com/en/jobs
+    scan_method: websearch
+    scan_query: 'site:redhat.com/en/jobs "Support Engineer" OR "OpenShift" OR "Ansible" OR "Technical Account Manager"'
+    notes: "Strong fit for RHCSA/RHCE, OpenShift, Ansible, Linux support."
+    enabled: true
+
+  - name: Canonical
+    careers_url: https://canonical.com/careers/all
+    scan_method: websearch
+    scan_query: 'site:canonical.com/careers "Support Engineer" OR "Linux" OR "Cloud" OR "Kubernetes"'
+    notes: "Ubuntu, Linux, cloud, support, SRE, and customer engineering roles."
+    enabled: true
+
+  - name: GitLab
+    careers_url: https://about.gitlab.com/jobs/
+    scan_method: websearch
+    scan_query: 'site:about.gitlab.com/jobs "Support Engineer" OR "DevOps" OR "Infrastructure" OR "SRE"'
+    notes: "Good fit for support and DevOps-heavy roles."
+    enabled: true
+
+  - name: SUSE
+    careers_url: https://www.suse.com/careers/
+    scan_method: websearch
+    scan_query: 'site:suse.com/careers "Support Engineer" OR "Linux" OR "Kubernetes" OR "Rancher"'
+    notes: "Enterprise Linux and Kubernetes support roles."
+    enabled: true
+
+  - name: Elastic
+    careers_url: https://jobs.elastic.co/
+    scan_method: websearch
+    scan_query: 'site:jobs.elastic.co "Support Engineer" OR "Cloud" OR "SRE"'
+    notes: "Strong support and cloud operations opportunities."
+    enabled: true
+
+  - name: Grafana Labs
+    careers_url: https://grafana.com/about/careers/open-positions/
+    scan_method: websearch
+    scan_query: 'site:grafana.com/about/careers "Support Engineer" OR "SRE" OR "Cloud" OR "Solutions Engineer"'
+    notes: "Monitoring, observability, cloud, and customer-facing roles."
+    enabled: true
+
+  - name: Datadog
+    careers_url: https://careers.datadoghq.com/
+    scan_method: websearch
+    scan_query: 'site:careers.datadoghq.com "Support Engineer" OR "Technical Solutions" OR "SRE"'
+    notes: "Monitoring and production support fit."
+    enabled: true
+
+  - name: New Relic
+    careers_url: https://newrelic.com/about/careers
+    scan_method: websearch
+    scan_query: 'site:newrelic.com/about/careers "Support Engineer" OR "Technical Support" OR "Cloud"'
+    notes: "Relevant due to monitoring/support background."
+    enabled: true
+
+  - name: HashiCorp
+    careers_url: https://www.hashicorp.com/careers
+    scan_method: websearch
+    scan_query: 'site:hashicorp.com/careers "Support Engineer" OR "Solutions Engineer" OR "Terraform" OR "Infrastructure"'
+    notes: "Infra automation and customer engineering fit."
+    enabled: true
+
+  - name: Redpanda
+    careers_url: https://jobs.ashbyhq.com/redpanda-data
+    scan_method: websearch
+    scan_query: 'site:jobs.ashbyhq.com/redpanda-data "Support Engineer" OR "Solutions Engineer" OR "SRE"'
+    notes: "Distributed systems and support roles."
+    enabled: true
+
+  - name: Confluent
+    careers_url: https://careers.confluent.io/
+    scan_method: websearch
+    scan_query: 'site:careers.confluent.io "Support Engineer" OR "Cloud Engineer" OR "Solutions Engineer"'
+    notes: "Cloud platform and support engineering roles."
+    enabled: true
+
+  - name: DigitalOcean
+    careers_url: https://www.digitalocean.com/careers
+    scan_method: websearch
+    scan_query: 'site:digitalocean.com/careers "Support Engineer" OR "Cloud Support" OR "Infrastructure"'
+    notes: "Cloud infrastructure and support fit."
+    enabled: true
+
+  - name: AWS
+    careers_url: https://www.amazon.jobs
+    scan_method: websearch
+    scan_query: 'site:amazon.jobs "Cloud Support Engineer" OR "Support Engineer" OR "Technical Account Manager" AWS'
+    notes: "Direct fit for AWS-certified support and cloud roles."
+    enabled: true
+
+  - name: Microsoft
+    careers_url: https://jobs.careers.microsoft.com/
+    scan_method: websearch
+    scan_query: 'site:jobs.careers.microsoft.com "Support Engineer" OR "Customer Engineer" OR "Cloud Solution Architect"'
+    notes: "Cloud support and customer engineering roles."
+    enabled: true
+
+  - name: Google Cloud
+    careers_url: https://www.google.com/about/careers/applications/jobs/results/
+    scan_method: websearch
+    scan_query: 'site:google.com/about/careers "Customer Engineer" OR "Cloud Engineer" OR "Technical Solutions"'
+    notes: "Customer engineering and cloud roles."
+    enabled: true
+
+  - name: Oracle
+    careers_url: https://www.oracle.com/careers/
+    scan_method: websearch
+    scan_query: 'site:oracle.com/careers "Support Engineer" OR "Cloud Operations" OR "Systems Engineer"'
+    notes: "Enterprise support and cloud operations."
+    enabled: true
+
+  - name: IBM
+    careers_url: https://www.ibm.com/careers
+    scan_method: websearch
+    scan_query: 'site:ibm.com/careers "Support Engineer" OR "DevOps Engineer" OR "Cloud" OR "OpenShift"'
+    notes: "Enterprise support and hybrid cloud fit."
+    enabled: true
+
+  - name: Nokia
+    careers_url: https://www.nokia.com/about-us/careers/
+    scan_method: websearch
+    scan_query: 'site:nokia.com/about-us/careers "Support Engineer" OR "DevOps" OR "Linux"'
+    notes: "Infra, support, and systems roles."
+    enabled: true
+
+  - name: Safaricom
+    careers_url: https://www.safaricom.co.ke/careers
+    scan_method: websearch
+    scan_query: 'site:safaricom.co.ke/careers "DevOps" OR "Support Engineer" OR "Systems Engineer"'
+    notes: "Kenya-based telecom and platform operations opportunities."
+    enabled: true
+
+  - name: Cellulant
+    careers_url: https://cellulant.io/careers
+    scan_method: websearch
+    scan_query: 'site:cellulant.io "careers" "Support" OR "DevOps" OR "Operations"'
+    notes: "Relevant due to prior experience and fintech fit."
+    enabled: true
+
+  - name: Automattic
+    careers_url: https://automattic.com/work-with-us/
+    scan_method: websearch
+    scan_query: 'site:automattic.com/work-with-us OR site:automattic.com/jobs "remote" "support" OR "devops" OR "systems"'
+    notes: "Remote-first company. Careers page says work with us from wherever you like."
+    enabled: true
+
+  - name: Zapier
+    careers_url: https://zapier.com/jobs
+    scan_method: websearch
+    scan_query: 'site:zapier.com/jobs "remote" "support" OR "engineering operations" OR "systems" OR "automation"'
+    notes: "Remote-first company. Careers page says work from anywhere."
+    enabled: true
+
+  - name: Deel
+    careers_url: https://www.deel.com/careers/
+    scan_method: websearch
+    scan_query: 'site:deel.com/careers "remote" "engineering" OR "support" OR "solutions engineer"'
+    notes: "Global remote employer in 80+ countries; strong fit for support, solutions, and infrastructure roles."
+    enabled: true
+
+  - name: Wikimedia Foundation
+    careers_url: https://wikimediafoundation.org/jobs/
+    scan_method: websearch
+    scan_query: 'site:wikimediafoundation.org/jobs "remote" "site reliability" OR "engineering" OR "operations"'
+    notes: "Remote nonprofit employer with engineering roles across Europe and Africa time zones."
+    enabled: true
+
+  - name: GitHub
+    careers_url: https://www.github.careers/careers-home
+    scan_method: websearch
+    scan_query: 'site:github.careers "remote" "support engineer" OR "customer success" OR "solutions engineer"'
+    notes: "Remote-friendly employer; some roles are EMEA-remote, so role-by-role eligibility matters."
+    enabled: true
+
+
+  - name: Mastercard
+    careers_url: https://careers.mastercard.com/
+    scan_method: websearch
+    scan_query: 'site:careers.mastercard.com "Support Engineer" OR "Cloud Support Engineer" OR "Technical Account Manager" OR "Solutions Architect" OR "Remote"'
+    notes: "Global payments company with a dedicated remote-jobs page and remote openings in current search results."
+    enabled: true
+
+
+  - name: Thunes
+    careers_url: https://www.thunes.com/jobs/
+    scan_method: websearch
+    scan_query: 'site:thunes.com/jobs "support" OR "engineering" OR "platform" OR "devops" OR "solutions"'
+    notes: "Global cross-border payments company with current vacancies on its jobs page; relevant fintech fit."
+    enabled: true
